@@ -56,6 +56,7 @@
             background-position: center;
             z-index: -4;
             filter: brightness(0.55);
+            transition: opacity 0.1s ease-out; /* Transisi halus untuk opacity */
         }
 
         /* Latar Belakang Global */
@@ -72,12 +73,12 @@
             filter: brightness(0.45);
         }
 
-        /* Efek Kaca - Diperbarui warna agar menyatu dengan latar (Navy/Teal Gelap) */
+        /* Efek Kaca */
         .glass-panel {
-            background: rgba(13, 22, 33, 0.75); /* Warna navy/teal gelap transparan */
+            background: rgba(13, 22, 33, 0.75); 
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(191, 149, 63, 0.15); /* Border emas sangat tipis */
+            border: 1px solid rgba(191, 149, 63, 0.15); 
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
             transform: translateZ(0);
             backface-visibility: hidden;
@@ -280,13 +281,14 @@
             const welcomeGate = document.getElementById('welcome-gate');
             const mainContent = document.getElementById('main-content');
             const bgVideo = document.getElementById('bg-video');
+            const heroContent = document.getElementById('hero-content');
+            const scrollIndicator = document.getElementById('scroll-indicator');
+            const bgFallback = document.getElementById('bg-fallback');
 
+            // Logika Video Selesai
             if (bgVideo) {
                 bgVideo.addEventListener('ended', () => {
                     bgVideo.style.opacity = '0'; 
-                    const heroContent = document.getElementById('hero-content');
-                    const scrollIndicator = document.getElementById('scroll-indicator');
-                    
                     if (heroContent) heroContent.classList.remove('opacity-0');
                     if (scrollIndicator) scrollIndicator.classList.remove('opacity-0');
 
@@ -295,6 +297,28 @@
                     }, 1500); 
                 });
             }
+
+            // Scroll Logic: Fade out SECTION 1 (Konten & Background)
+            window.addEventListener('scroll', () => {
+                const scrollPos = window.scrollY;
+
+                // Hitung opacity (memudar dalam 400px pertama scroll)
+                let opacity = 1 - (scrollPos / 400);
+                if (opacity < 0) opacity = 0;
+
+                // Terapkan Opacity pada Latar Belakang Hero (bg-fallback)
+                if (bgFallback) {
+                    bgFallback.style.opacity = opacity;
+                }
+
+                // Terapkan Opacity pada Konten Teks & Indikator
+                if (heroContent && !heroContent.classList.contains('opacity-0')) {
+                    heroContent.style.opacity = opacity;
+                }
+                if (scrollIndicator && !scrollIndicator.classList.contains('opacity-0')) {
+                    scrollIndicator.style.opacity = opacity;
+                }
+            });
 
             if (btnBuka) {
                 btnBuka.addEventListener('click', function(e) {
