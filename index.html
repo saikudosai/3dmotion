@@ -19,30 +19,31 @@
 
     <style>
         :root {
-            --primary-bg: #01080e;
-        }
-
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            background-color: var(--primary-bg);
-            /* Mencegah jumpy scroll di Chrome */
-            overscroll-behavior-y: none;
+            /* Fallback jika JS belum jalan */
+            --vh: 1vh;
         }
 
         body {
             font-family: 'Playfair Display', serif;
+            background-color: #01080e;
             color: #f3f4f6;
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
+            /* Mencegah tarikan refresh di Chrome mobile */
+            overscroll-behavior-y: none;
         }
         
         .font-script {
             font-family: 'Great Vibes', cursive;
         }
 
-        /* Overlay Gelap efisien */
+        /* Kelas untuk tinggi viewport yang dikunci JS */
+        .fixed-h-screen {
+            height: 100vh;
+            height: calc(var(--vh, 1vh) * 100);
+        }
+
+        /* Overlay Gelap */
         .bg-overlay::after {
             content: '';
             position: absolute;
@@ -51,25 +52,24 @@
             z-index: 1;
         }
 
-        /* Background Dasar yang Statis */
+        /* Background Dasar Statis */
         #bg-design {
             position: fixed;
             inset: 0;
             width: 100%;
-            height: 100%;
-            height: 100dvh;
+            height: calc(var(--vh, 1vh) * 100);
             background-size: cover;
             background-position: center;
             z-index: -5;
+            transform: translate3d(0,0,0);
         }
 
-        /* Hero Background - Diubah ke Fixed untuk stabilitas Chrome */
+        /* Hero Background - Dikunci tingginya agar tidak zoom */
         #bg-fallback {
             position: fixed;
             inset: 0;
             width: 100%;
-            height: 100%;
-            height: 100dvh;
+            height: calc(var(--vh, 1vh) * 100);
             background-size: cover;
             background-position: center;
             z-index: -4;
@@ -82,8 +82,7 @@
             position: fixed;
             inset: 0;
             width: 100%;
-            height: 100%;
-            height: 100dvh; 
+            height: calc(var(--vh, 1vh) * 100);
             object-fit: cover;
             z-index: -3;
             pointer-events: none;
@@ -112,15 +111,15 @@
             transform: translate3d(0, -20px, 0);
         }
 
-        /* Glass Panel */
+        /* Efek Kaca (Warna Navy/Teal Gelap) */
         .glass-panel {
-            background: rgba(13, 22, 33, 0.85); 
+            background: rgba(13, 22, 33, 0.82); 
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(191, 149, 63, 0.2); 
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-            transform: translate3d(0,0,0);
             border-radius: 2rem;
+            transform: translate3d(0,0,0);
         }
 
         .text-shadow-heavy {
@@ -132,27 +131,6 @@
             color: #000;
             font-weight: 700;
             box-shadow: 0 10px 25px rgba(170, 119, 28, 0.3);
-        }
-
-        /* Kontainer Utama */
-        #main-content {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Konten Hero */
-        #hero-content {
-            height: 100dvh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            will-change: opacity;
-            transform: translate3d(0,0,0);
         }
     </style>
 </head>
@@ -175,16 +153,16 @@
         <source src="https://invite.leafitation.com/wp-content/uploads/2025/07/3D-motion-fairytale-compressed.mp4" type="video/mp4">
     </video>
 
-    <!-- WELCOME GATE -->
-    <div id="welcome-gate" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('https://invite.leafitation.com/wp-content/uploads/2024/05/fairytale-sampul.jpg');">
+    <!-- WELCOME GATE (Sampul) -->
+    <div id="welcome-gate" class="fixed-h-screen" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('https://invite.leafitation.com/wp-content/uploads/2024/05/fairytale-sampul.jpg');">
         <div class="mb-6 animate-pulse">
             <svg class="w-12 h-12 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
         </div>
         <p class="text-xs tracking-[0.4em] uppercase text-gray-300 mb-4 font-bold text-shadow-heavy">The Wedding Of</p>
         <h1 class="font-script text-6xl md:text-8xl text-white mb-8 text-shadow-heavy">Tiara & Jati</h1>
         <div class="mb-10 text-center">
-            <p class="text-sm text-gray-300 mb-2">Kepada Yth. Bapak/Ibu/Saudara/i</p>
-            <p class="font-bold text-xl text-white border-b-2 border-yellow-600 inline-block pb-1">Tamu Undangan</p>
+            <p class="text-sm text-gray-300 mb-2 font-medium">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+            <p class="font-bold text-xl text-white border-b-2 border-yellow-600 inline-block pb-1 tracking-wider px-2">Tamu Undangan</p>
         </div>
         <button id="btn-buka" class="btn-gold px-12 py-4 rounded-full tracking-widest flex items-center gap-3 shadow-2xl cursor-pointer uppercase transition-transform active:scale-95">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76"></path></svg>
@@ -196,15 +174,15 @@
     <div id="main-content" class="hidden">
         
         <!-- SECTION 1: HERO -->
-        <section id="hero-content">
-            <div class="p-6">
+        <section id="hero-section" class="fixed-h-screen relative flex flex-col items-center justify-center text-center px-4">
+            <div id="hero-content" class="opacity-0">
                 <img src="https://invite.leafitation.com/wp-content/uploads/2024/04/bulan-bunga.png" alt="Bulan Bunga" class="w-32 md:w-40 mx-auto mb-6 drop-shadow-2xl">
                 <p class="text-[10px] tracking-[0.4em] uppercase text-white mb-2 font-bold text-shadow-heavy">The Wedding Of</p>
                 <h1 class="text-5xl md:text-6xl text-white mb-4 font-bold text-shadow-heavy">Tiara & Jati</h1>
                 <p class="text-sm tracking-[0.5em] font-bold text-yellow-500">11 . 06 . 2026</p>
             </div>
             
-            <div id="scroll-indicator" class="absolute bottom-10 w-full flex flex-col items-center animate-bounce pointer-events-none">
+            <div id="scroll-indicator" class="opacity-0 absolute bottom-10 w-full flex flex-col items-center animate-bounce pointer-events-none">
                 <svg class="w-8 h-8 text-yellow-400 drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
                 <p class="text-[10px] tracking-[0.3em] mt-3 uppercase font-black text-white drop-shadow-2xl bg-black/40 px-3 py-1 rounded-full">Scroll Down</p>
             </div>
@@ -252,7 +230,7 @@
         </section>
 
         <!-- CLOSING -->
-        <section class="pt-10 pb-20 px-6 text-center">
+        <section class="pt-10 pb-24 px-6 text-center">
             <div data-aos="fade-up" class="glass-panel p-16">
                 <h1 class="font-script text-7xl text-yellow-500">Tiara & Jati</h1>
             </div>
@@ -263,7 +241,26 @@
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // FUNGSI KRITIKAL: Lock Viewport Height
+        function updateVh() {
+            // Kita menghitung window.innerHeight tepat satu kali untuk mengunci ukuran
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            // Jalankan updateVh segera
+            updateVh();
+            
+            // Hanya update saat rotasi layar atau perubahan lebar (bukan scroll)
+            let lastWidth = window.innerWidth;
+            window.addEventListener('resize', () => {
+                if (window.innerWidth !== lastWidth) {
+                    updateVh();
+                    lastWidth = window.innerWidth;
+                }
+            });
+
             const btnBuka = document.getElementById('btn-buka');
             const welcomeGate = document.getElementById('welcome-gate');
             const mainContent = document.getElementById('main-content');
@@ -272,27 +269,30 @@
             const scrollIndicator = document.getElementById('scroll-indicator');
             const bgFallback = document.getElementById('bg-fallback');
 
-            // Video Management
             if (bgVideo) {
                 bgVideo.addEventListener('ended', () => {
                     bgVideo.style.opacity = '0'; 
-                    // Munculkan hero perlahan
-                    if (heroContent) heroContent.classList.remove('opacity-0');
-                    if (scrollIndicator) scrollIndicator.classList.remove('opacity-0');
+                    if (heroContent) {
+                        heroContent.style.transition = 'opacity 2s ease';
+                        heroContent.classList.remove('opacity-0');
+                    }
+                    if (scrollIndicator) {
+                        scrollIndicator.style.transition = 'opacity 2s ease';
+                        scrollIndicator.classList.remove('opacity-0');
+                    }
                     setTimeout(() => bgVideo.remove(), 1100); 
                 });
             }
 
-            // Scroll Handler Optimized for Chrome Mobile
+            // Scroll Handler Optimized for Chrome
             let ticking = false;
             window.addEventListener('scroll', () => {
                 if (!ticking) {
                     window.requestAnimationFrame(() => {
                         const scrollPos = window.scrollY;
-                        // Opacity menghilang dalam rentang 450px
+                        // Opacity fading dalam rentang 450px
                         const opacity = Math.max(0, 1 - (scrollPos / 450));
 
-                        // Gunakan style.opacity langsung untuk performa
                         if (bgFallback) bgFallback.style.opacity = opacity;
                         if (heroContent) heroContent.style.opacity = opacity;
                         if (scrollIndicator) scrollIndicator.style.opacity = opacity;
@@ -307,7 +307,9 @@
                 btnBuka.addEventListener('click', function(e) {
                     e.preventDefault();
                     
-                    // Trigger video (harus di dalam event click untuk HP)
+                    // Kunci ulang VH sesaat sebelum buka untuk presisi
+                    updateVh();
+
                     if (bgVideo) {
                         bgVideo.play().catch(() => {});
                     }
@@ -318,14 +320,11 @@
                         welcomeGate.style.display = 'none';
                         mainContent.classList.remove('hidden');
                         
-                        // Re-trigger AOS setelah elemen muncul
                         AOS.init({ 
                             duration: 1000, 
-                            once: true,
-                            disable: 'mobile' // Opsional: nonaktifkan AOS di mobile jika masih berat
+                            once: true
                         });
                         
-                        // Force scroll ke atas untuk reset posisi Chrome
                         window.scrollTo(0, 0);
                     }, 600); 
                 });
@@ -334,29 +333,24 @@
 
         function copyRekening() {
             const noRek = document.getElementById('rek-bni').innerText;
+            const toast = document.getElementById('toast');
+            
             const showMsg = () => {
-                const toast = document.getElementById('toast');
                 toast.classList.remove('opacity-0');
                 setTimeout(() => toast.classList.add('opacity-0'), 3000);
             };
 
             if (navigator.clipboard) {
-                navigator.clipboard.writeText(noRek).then(showMsg).catch(() => fallbackCopy(noRek, showMsg));
-            } else {
-                fallbackCopy(noRek, showMsg);
+                navigator.clipboard.writeText(noRek).then(showMsg).catch(() => {
+                    const el = document.createElement('textarea');
+                    el.value = noRek;
+                    document.body.appendChild(el);
+                    el.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(el);
+                    showMsg();
+                });
             }
-        }
-
-        function fallbackCopy(text, cb) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";
-            textArea.style.left = "-9999px";
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            cb();
         }
     </script>
 </body>
