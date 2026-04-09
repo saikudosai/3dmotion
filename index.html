@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -17,9 +18,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --primary-bg: #01080e;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-bg);
+            /* Mencegah jumpy scroll di Chrome */
+            overscroll-behavior-y: none;
+        }
+
         body {
             font-family: 'Playfair Display', serif;
-            background-color: #01080e;
             color: #f3f4f6;
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
@@ -29,7 +42,7 @@
             font-family: 'Great Vibes', cursive;
         }
 
-        /* Overlay Gelap untuk efisiensi performa daripada filter:brightness */
+        /* Overlay Gelap efisien */
         .bg-overlay::after {
             content: '';
             position: absolute;
@@ -38,94 +51,123 @@
             z-index: 1;
         }
 
-        /* Video Background */
-        #bg-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            height: 100dvh; 
-            object-fit: cover;
-            z-index: -3;
-            pointer-events: none;
-            transition: opacity 1.5s ease-in-out;
-            will-change: opacity;
-        }
-
-        /* Latar Belakang Hero */
-        #bg-fallback {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            height: 100dvh;
-            background-size: cover;
-            background-position: center;
-            z-index: -4;
-            will-change: opacity;
-        }
-
-        /* Latar Belakang Global */
+        /* Background Dasar yang Statis */
         #bg-design {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            inset: 0;
+            width: 100%;
+            height: 100%;
             height: 100dvh;
             background-size: cover;
             background-position: center;
             z-index: -5;
         }
 
-        /* Efek Kaca */
-        .glass-panel {
-            background: rgba(13, 22, 33, 0.8); 
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(191, 149, 63, 0.2); 
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-            transform: translateZ(0); /* Force GPU */
+        /* Hero Background - Diubah ke Fixed untuk stabilitas Chrome */
+        #bg-fallback {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            height: 100dvh;
+            background-size: cover;
+            background-position: center;
+            z-index: -4;
+            will-change: opacity;
+            transform: translate3d(0,0,0);
         }
 
-        .text-shadow-heavy {
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+        /* Video Background */
+        #bg-video {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            height: 100dvh; 
+            object-fit: cover;
+            z-index: -3;
+            pointer-events: none;
+            transition: opacity 1s ease-in-out;
+            will-change: opacity;
         }
 
+        /* Welcome Gate */
         #welcome-gate {
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: transform, opacity;
         }
+
         .gate-hidden {
             opacity: 0;
             visibility: hidden;
-            transform: scale(1.05);
+            transform: translate3d(0, -20px, 0);
+        }
+
+        /* Glass Panel */
+        .glass-panel {
+            background: rgba(13, 22, 33, 0.85); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(191, 149, 63, 0.2); 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            transform: translate3d(0,0,0);
+            border-radius: 2rem;
+        }
+
+        .text-shadow-heavy {
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
         }
 
         .btn-gold {
             background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             color: #000;
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(170, 119, 28, 0.3);
         }
 
-        /* Optimasi Scroll pada HP */
-        #hero-content, #scroll-indicator {
-            will-change: opacity, transform;
+        /* Kontainer Utama */
+        #main-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Konten Hero */
+        #hero-content {
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            will-change: opacity;
+            transform: translate3d(0,0,0);
         }
     </style>
 </head>
-<body class="antialiased selection:bg-yellow-600 selection:text-white">
+<body class="antialiased">
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 bg-yellow-600 text-white px-6 py-3 rounded-full shadow-lg transition-all duration-300 opacity-0 pointer-events-none z-[100] text-sm font-semibold tracking-wider flex items-center gap-2">
+    <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 bg-yellow-600 text-white px-6 py-3 rounded-full shadow-lg transition-all duration-300 opacity-0 pointer-events-none z-[200] text-sm font-semibold flex items-center gap-2">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-        <span id="toast-msg">Berhasil disalin!</span>
+        <span id="toast-msg">Nomor disalin!</span>
     </div>
 
     <!-- BACKGROUND GLOBAL -->
     <div id="bg-design" class="bg-overlay" style="background-image: url('https://invite.leafitation.com/wp-content/uploads/2025/01/NIGHT-FAIRY-TALE-DESIGN.jpg');"></div>
 
-    <!-- BACKGROUND HERO (Menghilang saat scroll) -->
+    <!-- BACKGROUND HERO (Memudar saat scroll) -->
     <div id="bg-fallback" class="bg-overlay" style="background-image: url('https://invite.leafitation.com/wp-content/uploads/2025/01/NIGHT-FAIRY-TALE-FALLBACK.jpg');"></div>
 
     <!-- VIDEO BACKGROUND -->
@@ -134,88 +176,85 @@
     </video>
 
     <!-- WELCOME GATE -->
-    <div id="welcome-gate" class="fixed inset-0 z-50 flex flex-col items-center justify-center h-[100dvh] px-6 text-center bg-cover bg-center" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('https://invite.leafitation.com/wp-content/uploads/2024/05/fairytale-sampul.jpg');">
-        <div class="mb-6 opacity-90 animate-pulse">
-            <svg class="w-10 h-10 mx-auto text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+    <div id="welcome-gate" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('https://invite.leafitation.com/wp-content/uploads/2024/05/fairytale-sampul.jpg');">
+        <div class="mb-6 animate-pulse">
+            <svg class="w-12 h-12 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
         </div>
-        <p class="text-xs md:text-sm tracking-[0.4em] uppercase text-gray-300 mb-4 font-bold text-shadow-heavy">The Wedding Of</p>
-        <h1 class="font-script text-6xl sm:text-7xl md:text-9xl text-white mb-8 text-shadow-heavy">Tiara & Jati</h1>
-        <div class="mb-12">
-            <p class="text-sm md:text-base text-gray-300 mb-2">Kepada Yth. Bapak/Ibu/Saudara/i</p>
-            <p class="font-bold text-xl md:text-2xl text-white border-b-2 border-yellow-600 inline-block pb-1">Tamu Undangan</p>
+        <p class="text-xs tracking-[0.4em] uppercase text-gray-300 mb-4 font-bold text-shadow-heavy">The Wedding Of</p>
+        <h1 class="font-script text-6xl md:text-8xl text-white mb-8 text-shadow-heavy">Tiara & Jati</h1>
+        <div class="mb-10 text-center">
+            <p class="text-sm text-gray-300 mb-2">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+            <p class="font-bold text-xl text-white border-b-2 border-yellow-600 inline-block pb-1">Tamu Undangan</p>
         </div>
-        <button id="btn-buka" class="btn-gold px-10 py-4 rounded-full font-bold tracking-widest flex items-center gap-3 text-sm md:text-base shadow-2xl relative z-50 cursor-pointer uppercase">
+        <button id="btn-buka" class="btn-gold px-12 py-4 rounded-full tracking-widest flex items-center gap-3 shadow-2xl cursor-pointer uppercase transition-transform active:scale-95">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76"></path></svg>
             Buka Undangan
         </button>
     </div>
 
     <!-- MAIN CONTENT -->
-    <div id="main-content" class="hidden relative z-10 w-full max-w-2xl mx-auto pb-10 overflow-x-hidden">
+    <div id="main-content" class="hidden">
         
         <!-- SECTION 1: HERO -->
-        <section id="section-hero" class="relative w-full h-[100dvh] flex flex-col items-center justify-center text-center px-4">
-            <div id="hero-content" class="opacity-0 flex flex-col justify-center items-center">
-                <img src="https://invite.leafitation.com/wp-content/uploads/2024/04/bulan-bunga.png" alt="Bulan Bunga" class="w-36 md:w-40 mb-6 drop-shadow-2xl">
-                <p class="text-[10px] md:text-xs tracking-[0.4em] uppercase text-white mb-2 font-bold text-shadow-heavy">The Wedding Of</p>
+        <section id="hero-content">
+            <div class="p-6">
+                <img src="https://invite.leafitation.com/wp-content/uploads/2024/04/bulan-bunga.png" alt="Bulan Bunga" class="w-32 md:w-40 mx-auto mb-6 drop-shadow-2xl">
+                <p class="text-[10px] tracking-[0.4em] uppercase text-white mb-2 font-bold text-shadow-heavy">The Wedding Of</p>
                 <h1 class="text-5xl md:text-6xl text-white mb-4 font-bold text-shadow-heavy">Tiara & Jati</h1>
-                <p class="text-[12px] md:text-sm tracking-[0.5em] font-bold text-yellow-500 text-shadow-heavy">11 . 06 . 2026</p>
+                <p class="text-sm tracking-[0.5em] font-bold text-yellow-500">11 . 06 . 2026</p>
             </div>
             
-            <div id="scroll-indicator" class="opacity-0 absolute bottom-10 left-0 w-full flex flex-col items-center animate-bounce pointer-events-none">
+            <div id="scroll-indicator" class="absolute bottom-10 w-full flex flex-col items-center animate-bounce pointer-events-none">
                 <svg class="w-8 h-8 text-yellow-400 drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
                 <p class="text-[10px] tracking-[0.3em] mt-3 uppercase font-black text-white drop-shadow-2xl bg-black/40 px-3 py-1 rounded-full">Scroll Down</p>
             </div>
         </section>
 
         <!-- SECTION 2: QUOTE -->
-        <section class="py-20 px-4 text-center overflow-hidden">
-            <div data-aos="fade-up" class="glass-panel p-10 md:p-14 rounded-[3rem] relative mt-8">
+        <section class="py-24 px-6 text-center">
+            <div data-aos="fade-up" class="glass-panel p-10 relative">
                 <div class="absolute -top-7 left-1/2 -translate-x-1/2">
-                    <div class="bg-yellow-600 rounded-full p-4 shadow-2xl border-4 border-[#0d1621]">
+                    <div class="bg-yellow-600 rounded-full p-4 shadow-xl border-4 border-[#0d1621]">
                         <svg class="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
                     </div>
                 </div>
-                <p class="text-gray-100 italic text-base md:text-xl leading-relaxed mb-8 mt-6">
-                    "Dan diantara tanda-tanda kekuasaanNya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikanNya diantaramu rasa kasih dan sayang."
+                <p class="text-gray-100 italic text-lg leading-relaxed mb-8 mt-6">
+                    "Dan diantara tanda-tanda kekuasaanNya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya."
                 </p>
-                <p class="text-yellow-500 font-bold text-lg tracking-widest">(Qs. Ar-Rum: 21)</p>
+                <p class="text-yellow-500 font-bold tracking-widest text-sm">(Qs. Ar-Rum: 21)</p>
             </div>
         </section>
 
         <!-- SECTION 3: BRIDE & GROOM -->
-        <section class="py-16 px-4">
-            <div data-aos="fade-down" class="text-center mb-12">
-                <h2 class="font-script text-6xl md:text-7xl text-yellow-500 mb-4 text-shadow-heavy">Groom & Bride</h2>
-            </div>
+        <section class="py-16 px-6">
             <div class="flex flex-col gap-12">
-                <div data-aos="fade-right" class="glass-panel p-8 rounded-tr-[50px] rounded-bl-[50px] border-l-8 border-l-yellow-600 text-center">
+                <div data-aos="fade-right" class="glass-panel p-8 border-l-8 border-l-yellow-600 text-center">
                     <h3 class="font-script text-5xl text-white mb-3">Tiara Terang Bintang</h3>
-                    <p class="text-gray-300 text-xs md:text-sm">Putri dari Bapak Thomas Laksono & Ibu Rachma Aurora</p>
+                    <p class="text-gray-300 text-sm">Putri dari Bapak Thomas Laksono & Ibu Rachma Aurora</p>
                 </div>
                 <div data-aos="zoom-in" class="text-center text-5xl font-script text-yellow-600">&</div>
-                <div data-aos="fade-left" class="glass-panel p-8 rounded-tl-[50px] rounded-br-[50px] border-r-8 border-r-yellow-600 text-center">
+                <div data-aos="fade-left" class="glass-panel p-8 border-r-8 border-r-yellow-600 text-center">
                     <h3 class="font-script text-5xl text-white mb-3">Jati Alamsyah</h3>
-                    <p class="text-gray-300 text-xs md:text-sm">Putra dari Bapak James Santoso & Ibu Angelita Joyoningrat</p>
+                    <p class="text-gray-300 text-sm">Putra dari Bapak James Santoso & Ibu Angelita Joyoningrat</p>
                 </div>
             </div>
         </section>
 
         <!-- SECTION 4: GIFT -->
-        <section class="py-20 px-4 text-center">
-            <h2 data-aos="fade-up" class="font-script text-6xl md:text-7xl text-yellow-500 mb-6">Wedding Gift</h2>
-            <div data-aos="zoom-in" class="glass-panel p-8 rounded-[3rem] w-full max-w-[350px] mx-auto">
-                <p class="font-black text-xl uppercase text-white">Bank BNI</p>
-                <p class="text-3xl font-mono text-yellow-500 font-black my-4" id="rek-bni">0967681234</p>
+        <section class="py-24 px-6 text-center">
+            <h2 data-aos="fade-up" class="font-script text-6xl text-yellow-500 mb-8">Wedding Gift</h2>
+            <div data-aos="zoom-in" class="glass-panel p-8 max-w-sm mx-auto">
+                <p class="font-black text-xl uppercase text-white mb-4">Bank BNI</p>
+                <p class="text-3xl font-mono text-yellow-500 font-black mb-4" id="rek-bni">0967681234</p>
                 <p class="text-sm text-gray-300 mb-8">a.n Tiara Terang Bintang</p>
-                <button onclick="copyRekening()" class="w-full bg-yellow-600 text-black py-4 rounded-full font-black tracking-widest uppercase">Salin Rekening</button>
+                <button onclick="copyRekening()" class="w-full bg-yellow-600 text-black py-4 rounded-full font-black tracking-widest uppercase active:scale-95 transition-transform">Salin Rekening</button>
             </div>
         </section>
 
         <!-- CLOSING -->
-        <section class="pt-10 pb-20 px-4 text-center">
-            <div data-aos="fade-up" class="glass-panel p-10 md:p-20 w-full rounded-b-[5rem] pb-24">
-                <h1 class="font-script text-6xl md:text-8xl text-yellow-500">Tiara & Jati</h1>
+        <section class="pt-10 pb-20 px-6 text-center">
+            <div data-aos="fade-up" class="glass-panel p-16">
+                <h1 class="font-script text-7xl text-yellow-500">Tiara & Jati</h1>
             </div>
         </section>
 
@@ -233,35 +272,27 @@
             const scrollIndicator = document.getElementById('scroll-indicator');
             const bgFallback = document.getElementById('bg-fallback');
 
-            // Fungsi untuk menampilkan hero content
-            const showHero = () => {
-                if (heroContent) {
-                    heroContent.style.transition = 'opacity 2s ease-in-out';
-                    heroContent.classList.remove('opacity-0');
-                }
-                if (scrollIndicator) {
-                    scrollIndicator.style.transition = 'opacity 2s ease-in-out';
-                    scrollIndicator.classList.remove('opacity-0');
-                }
-            };
-
-            // Event Video
+            // Video Management
             if (bgVideo) {
                 bgVideo.addEventListener('ended', () => {
                     bgVideo.style.opacity = '0'; 
-                    showHero();
-                    setTimeout(() => bgVideo.remove(), 1600); 
+                    // Munculkan hero perlahan
+                    if (heroContent) heroContent.classList.remove('opacity-0');
+                    if (scrollIndicator) scrollIndicator.classList.remove('opacity-0');
+                    setTimeout(() => bgVideo.remove(), 1100); 
                 });
             }
 
-            // Scroll Handler (Dioptimalkan dengan requestAnimationFrame)
+            // Scroll Handler Optimized for Chrome Mobile
             let ticking = false;
             window.addEventListener('scroll', () => {
                 if (!ticking) {
                     window.requestAnimationFrame(() => {
                         const scrollPos = window.scrollY;
+                        // Opacity menghilang dalam rentang 450px
                         const opacity = Math.max(0, 1 - (scrollPos / 450));
 
+                        // Gunakan style.opacity langsung untuk performa
                         if (bgFallback) bgFallback.style.opacity = opacity;
                         if (heroContent) heroContent.style.opacity = opacity;
                         if (scrollIndicator) scrollIndicator.style.opacity = opacity;
@@ -270,15 +301,15 @@
                     });
                     ticking = true;
                 }
-            });
+            }, { passive: true });
 
             if (btnBuka) {
                 btnBuka.addEventListener('click', function(e) {
                     e.preventDefault();
-
-                    // PENTING: Memicu video di HP harus di dalam event klik langsung
+                    
+                    // Trigger video (harus di dalam event click untuk HP)
                     if (bgVideo) {
-                        bgVideo.play().catch(err => console.log("Video HP Auto-play diblokir:", err));
+                        bgVideo.play().catch(() => {});
                     }
 
                     welcomeGate.classList.add('gate-hidden');
@@ -286,30 +317,37 @@
                     setTimeout(() => {
                         welcomeGate.style.display = 'none';
                         mainContent.classList.remove('hidden');
-                        AOS.init({ duration: 1000, once: true });
+                        
+                        // Re-trigger AOS setelah elemen muncul
+                        AOS.init({ 
+                            duration: 1000, 
+                            once: true,
+                            disable: 'mobile' // Opsional: nonaktifkan AOS di mobile jika masih berat
+                        });
+                        
+                        // Force scroll ke atas untuk reset posisi Chrome
                         window.scrollTo(0, 0);
-                    }, 800); 
+                    }, 600); 
                 });
             }
         });
 
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-msg').innerText = message;
-            toast.classList.remove('opacity-0', 'pointer-events-none');
-            setTimeout(() => toast.classList.add('opacity-0', 'pointer-events-none'), 3000);
-        }
-
         function copyRekening() {
             const noRek = document.getElementById('rek-bni').innerText;
+            const showMsg = () => {
+                const toast = document.getElementById('toast');
+                toast.classList.remove('opacity-0');
+                setTimeout(() => toast.classList.add('opacity-0'), 3000);
+            };
+
             if (navigator.clipboard) {
-                navigator.clipboard.writeText(noRek).then(() => showToast("Nomor disalin!")).catch(() => fallbackCopy(noRek));
+                navigator.clipboard.writeText(noRek).then(showMsg).catch(() => fallbackCopy(noRek, showMsg));
             } else {
-                fallbackCopy(noRek);
+                fallbackCopy(noRek, showMsg);
             }
         }
 
-        function fallbackCopy(text) {
+        function fallbackCopy(text, cb) {
             const textArea = document.createElement("textarea");
             textArea.value = text;
             textArea.style.position = "fixed";
@@ -318,8 +356,10 @@
             textArea.select();
             document.execCommand('copy');
             document.body.removeChild(textArea);
-            showToast("Nomor disalin!");
+            cb();
         }
     </script>
 </body>
 </html>
+
+```
