@@ -102,13 +102,14 @@
             transform: translate3d(0, -20px, 0);
         }
 
+        /* Gaya Sempadan Putih Tebal */
         .glass-panel {
-            background: rgba(13, 22, 33, 0.85); 
+            background: rgba(13, 22, 33, 0.9); 
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(191, 149, 63, 0.2); 
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-            border-radius: 2rem;
+            border: 5px solid #ffffff; 
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.7);
+            border-radius: 3.5rem; 
             transform: translate3d(0,0,0);
         }
 
@@ -123,6 +124,22 @@
             box-shadow: 0 10px 25px rgba(170, 119, 28, 0.3);
         }
 
+        /* Tombol Klik Di Sini Brown/Gold Gradient */
+        .btn-click-here {
+            background: linear-gradient(to right, #9e7e4d, #c4a46d, #9e7e4d);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transition: transform 0.2s;
+        }
+        .btn-click-here:active { transform: scale(0.95); }
+
         .timer-box {
             background: white;
             color: #1a1a1a;
@@ -136,10 +153,25 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
         @media (min-width: 768px) {
-            .timer-box {
-                width: 80px;
-                height: 80px;
-            }
+            .timer-box { width: 80px; height: 80px; }
+        }
+
+        /* Modal/Details View */
+        .gift-details-card {
+            background: white;
+            color: #1a1a1a;
+            border-radius: 2rem;
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            display: none; /* Awalnya sembunyi */
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -190,14 +222,13 @@
                 <h1 class="text-5xl md:text-7xl lg:text-8xl text-white mb-6 font-bold text-shadow-heavy leading-tight">Tiara & Jati</h1>
                 <p class="text-sm md:text-base tracking-[0.6em] font-bold text-yellow-500 text-shadow-heavy">11 . 06 . 2026</p>
             </div>
-            
             <div id="scroll-indicator" class="opacity-0 absolute bottom-10 w-full flex flex-col items-center animate-bounce pointer-events-none">
                 <svg class="w-8 h-8 text-yellow-400 drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
                 <p class="text-[10px] tracking-[0.3em] mt-3 uppercase font-black text-white drop-shadow-2xl bg-black/40 px-3 py-1 rounded-full">Scroll Down</p>
             </div>
         </section>
 
-        <!-- SECTION 2: QUOTE & COUNTDOWN -->
+        <!-- SECTION 2: QUOTE -->
         <section class="py-24 px-4 text-center">
             <div data-aos="fade-up" class="glass-panel p-8 md:p-12 relative max-w-xl mx-auto">
                 <p class="text-gray-100 text-sm md:text-base leading-relaxed mb-8 font-medium">
@@ -206,8 +237,6 @@
                 <p class="text-gray-300 font-bold tracking-widest text-sm md:text-base mb-12">
                     (Qs. Ar. Rum (30) : 21)
                 </p>
-
-                <!-- Countdown Timer -->
                 <div class="flex justify-center gap-3 md:gap-5">
                     <div class="timer-box">
                         <span id="days" class="text-xl md:text-2xl font-bold">00</span>
@@ -232,39 +261,25 @@
         <!-- SECTION 3: BRIDE & GROOM -->
         <section class="py-16 px-4 text-center">
             <h2 data-aos="fade-down" class="text-3xl md:text-4xl text-white font-bold mb-8 tracking-[0.2em]">Bride & Groom</h2>
-            
-            <div data-aos="fade-up" class="glass-panel border-4 border-white/90 rounded-[3rem] p-8 md:p-12 max-w-xl mx-auto space-y-12 shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+            <div data-aos="fade-up" class="glass-panel p-8 md:p-12 max-w-xl mx-auto space-y-12">
                 <div class="space-y-4">
                     <p class="text-sm md:text-base font-medium text-gray-200">Assalamualaikum Wr. Wb.</p>
                     <p class="text-xs md:text-sm text-gray-300 leading-relaxed px-4 md:px-10">
                         Dengan memohon Rahmat & Ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan putra-putri kami:
                     </p>
                 </div>
-
-                <!-- Bride Details -->
                 <div class="flex flex-col items-center">
                     <h3 class="font-script text-7xl md:text-8xl text-white mb-1">Tiara</h3>
                     <h4 class="text-xl md:text-2xl font-bold text-white tracking-wide">Tiara Terang Bintang</h4>
-                    <p class="text-xs md:text-sm text-gray-300 mt-4 leading-relaxed">
-                        Putri dari Bapak Thomas Laksono &<br>Ibu Rachma Aurora
-                    </p>
-                    <a href="#" class="text-[10px] md:text-xs font-black text-white italic underline mt-6 tracking-[0.2em] uppercase hover:text-yellow-500 transition-colors">
-                        Instagram Tiara >>>
-                    </a>
+                    <p class="text-xs md:text-sm text-gray-300 mt-4">Putri dari Bapak Thomas Laksono & Ibu Rachma Aurora</p>
+                    <a href="#" class="text-[10px] md:text-xs font-black text-white italic underline mt-6 tracking-[0.2em] uppercase hover:text-yellow-500 transition-colors">Instagram Tiara >>></a>
                 </div>
-
                 <div class="text-5xl md:text-6xl font-script text-white py-2">&</div>
-
-                <!-- Groom Details -->
                 <div class="flex flex-col items-center">
                     <h3 class="font-script text-7xl md:text-8xl text-white mb-1">Jati</h3>
                     <h4 class="text-xl md:text-2xl font-bold text-white tracking-wide">Jati Alamsyah</h4>
-                    <p class="text-xs md:text-sm text-gray-300 mt-4 leading-relaxed">
-                        Putra dari Bapak James Santoso &<br>Ibu Angelita Joyoningrat
-                    </p>
-                    <a href="#" class="text-[10px] md:text-xs font-black text-white italic underline mt-6 tracking-[0.2em] uppercase hover:text-yellow-500 transition-colors">
-                        Instagram Jati >>>
-                    </a>
+                    <p class="text-xs md:text-sm text-gray-300 mt-4">Putra dari Bapak James Santoso & Ibu Angelita Joyoningrat</p>
+                    <a href="#" class="text-[10px] md:text-xs font-black text-white italic underline mt-6 tracking-[0.2em] uppercase hover:text-yellow-500 transition-colors">Instagram Jati >>></a>
                 </div>
             </div>
         </section>
@@ -272,63 +287,90 @@
         <!-- SECTION 4: EVENTS -->
         <section class="py-20 px-4 text-center overflow-hidden">
             <h2 data-aos="fade-down" class="font-script text-6xl md:text-7xl text-yellow-500 mb-12 text-shadow-heavy">Wedding Event</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <!-- Akad Nikah -->
-                <div data-aos="flip-left" class="glass-panel p-10 rounded-[2.5rem] flex flex-col items-center">
-                    <div class="w-16 h-16 rounded-full border-2 border-yellow-600 flex items-center justify-center mb-6 text-yellow-500 bg-black/30 shadow-inner">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            <div data-aos="fade-up" class="glass-panel p-8 md:p-12 max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-full border-2 border-yellow-600 flex items-center justify-center mb-6 text-yellow-500 bg-black/30 shadow-inner">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-bold tracking-widest text-white mb-3">Akad Nikah</h3>
+                        <div class="h-px w-16 bg-yellow-600/50 my-2"></div>
+                        <p class="font-bold text-lg text-white mt-2">Minggu, 11 Juni 2026</p>
+                        <p class="text-yellow-500 text-base mb-5 font-black uppercase tracking-widest">08.00 WIB - Selesai</p>
+                        <p class="text-sm md:text-base text-gray-200 leading-relaxed mb-8">
+                            <strong class="block text-white text-lg mb-1">Hotel Marriott Yogyakarta</strong>
+                            Jl. Ring Road Utara, Kaliwaru, Condongcatur, Yogyakarta
+                        </p>
+                        <a href="https://maps.app.goo.gl/z7Asx9BvxWtzepZA7" target="_blank" class="mt-auto bg-white/5 border-2 border-yellow-600 text-yellow-500 hover:bg-yellow-600 hover:text-black transition px-8 py-3 rounded-full text-xs font-black tracking-widest uppercase w-full">Lihat Peta</a>
                     </div>
-                    <h3 class="text-2xl md:text-3xl font-bold tracking-widest text-white mb-3">Akad Nikah</h3>
-                    <div class="h-px w-16 bg-yellow-600/50 my-2"></div>
-                    <p class="font-bold text-lg text-white mt-2">Minggu, 11 Juni 2026</p>
-                    <p class="text-yellow-500 text-base mb-5 font-black uppercase tracking-widest">08.00 WIB - Selesai</p>
-                    <p class="text-sm md:text-base text-gray-200 leading-relaxed mb-8">
-                        <strong class="block text-white text-lg mb-1">Hotel Marriott Yogyakarta</strong>
-                        Jl. Ring Road Utara, Kaliwaru, Condongcatur, Yogyakarta
-                    </p>
-                    <a href="https://maps.app.goo.gl/z7Asx9BvxWtzepZA7" target="_blank" class="mt-auto bg-white/5 border-2 border-yellow-600 text-yellow-500 hover:bg-yellow-600 hover:text-black transition px-8 py-3 rounded-full text-xs font-black tracking-widest uppercase w-full">Lihat Peta</a>
-                </div>
-
-                <!-- Resepsi -->
-                <div data-aos="flip-right" class="glass-panel p-10 rounded-[2.5rem] flex flex-col items-center">
-                    <div class="w-16 h-16 rounded-full border-2 border-yellow-600 flex items-center justify-center mb-6 text-yellow-500 bg-black/30 shadow-inner">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"></path></svg>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-full border-2 border-yellow-600 flex items-center justify-center mb-6 text-yellow-500 bg-black/30 shadow-inner">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-bold tracking-widest text-white mb-3">Resepsi</h3>
+                        <div class="h-px w-16 bg-yellow-600/50 my-2"></div>
+                        <p class="font-bold text-lg text-white mt-2">Minggu, 11 Juni 2026</p>
+                        <p class="text-yellow-500 text-base mb-5 font-black uppercase tracking-widest">11.00 - 14.00 WIB</p>
+                        <p class="text-sm md:text-base text-gray-200 leading-relaxed mb-8">
+                            <strong class="block text-white text-lg mb-1">Hotel Marriott Yogyakarta</strong>
+                            Jl. Ring Road Utara, Kaliwaru, Condongcatur, Yogyakarta
+                        </p>
+                        <a href="https://maps.app.goo.gl/z7Asx9BvxWtzepZA7" target="_blank" class="mt-auto bg-white/5 border-2 border-yellow-600 text-yellow-500 hover:bg-yellow-600 hover:text-black transition px-8 py-3 rounded-full text-xs font-black tracking-widest uppercase w-full">Lihat Peta</a>
                     </div>
-                    <h3 class="text-2xl md:text-3xl font-bold tracking-widest text-white mb-3">Resepsi</h3>
-                    <div class="h-px w-16 bg-yellow-600/50 my-2"></div>
-                    <p class="font-bold text-lg text-white mt-2">Minggu, 11 Juni 2026</p>
-                    <p class="text-yellow-500 text-base mb-5 font-black uppercase tracking-widest">11.00 - 14.00 WIB</p>
-                    <p class="text-sm md:text-base text-gray-200 leading-relaxed mb-8">
-                        <strong class="block text-white text-lg mb-1">Hotel Marriott Yogyakarta</strong>
-                        Jl. Ring Road Utara, Kaliwaru, Condongcatur, Yogyakarta
-                    </p>
-                    <a href="https://maps.app.goo.gl/z7Asx9BvxWtzepZA7" target="_blank" class="mt-auto bg-white/5 border-2 border-yellow-600 text-yellow-500 hover:bg-yellow-600 hover:text-black transition px-8 py-3 rounded-full text-xs font-black tracking-widest uppercase w-full">Lihat Peta</a>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 5: GIFT -->
+        <!-- SECTION 5: GIFT (Sesuai Gambar Referensi Baru) -->
         <section class="py-20 px-4 text-center">
-            <h2 data-aos="fade-up" class="font-script text-6xl md:text-7xl text-yellow-500 mb-6 text-shadow-heavy">Wedding Gift</h2>
-            <p data-aos="fade-up" class="text-gray-200 text-sm md:text-base mb-10 max-w-md mx-auto font-medium">Doa restu Anda merupakan karunia terindah. Namun jika memberi adalah ungkapan tanda kasih, Anda dapat mengirimkannya secara cashless.</p>
-            
-            <div data-aos="zoom-in" class="glass-panel p-8 md:p-10 rounded-[3rem] w-full max-w-[350px] mx-auto border-t-2 border-t-yellow-600/30">
-                <p class="font-black tracking-[0.2em] mb-2 text-xl uppercase text-white">Bank BNI</p>
-                <div class="h-0.5 w-full bg-yellow-600/20 mb-6 mt-2"></div>
-                <p class="text-3xl md:text-4xl tracking-[0.1em] font-mono text-yellow-500 font-black mb-3" id="rek-bni">0967681234</p>
-                <p class="text-sm text-gray-300 mb-8 uppercase tracking-widest font-bold">a.n Tiara Terang Bintang</p>
+            <div data-aos="zoom-in" class="glass-panel p-8 md:p-12 max-w-xl mx-auto flex flex-col items-center">
                 
-                <button onclick="copyRekening()" class="w-full bg-yellow-600 hover:bg-yellow-500 text-black py-4 rounded-full transition flex items-center justify-center gap-3 text-sm font-black tracking-widest shadow-xl border-none outline-none cursor-pointer">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                    SALIN REKENING
-                </button>
+                <!-- Intro View -->
+                <div id="gift-intro">
+                    <img src="https://invite.leafitation.com/wp-content/uploads/2025/01/bunga-fa.png" alt="Bunga" class="w-48 md:w-64 mx-auto mb-8 drop-shadow-xl">
+                    <h2 class="text-4xl md:text-6xl text-white font-bold mb-8 tracking-widest">Wedding Gift</h2>
+                    <p class="text-gray-100 text-sm md:text-base leading-relaxed mb-10 px-4">
+                        Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Dan jika memberi adalah ungkapan tanda kasih Anda, Anda dapat memberi kado secara cashless.
+                    </p>
+                    <button onclick="showGiftDetails()" class="btn-click-here">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14H8a4 4 0 00-4 4 1 1 0 001 1h10a1 1 0 001-1 4 4 0 00-4-4z"></path></svg>
+                        KLIK DI SINI
+                    </button>
+                </div>
+
+                <!-- Detail View Card -->
+                <div id="gift-details" class="gift-details-card">
+                    <div class="mb-8">
+                        <img src="https://upload.wikimedia.org/wikipedia/id/thumb/5/55/BNI_logo.svg/1200px-BNI_logo.svg.png" alt="BNI" class="h-8 mx-auto mb-2">
+                        <p class="text-xs font-bold text-gray-600 mb-1">Bank BNI</p>
+                        <p class="text-xl font-mono font-bold text-gray-800" id="rek-bni">0967681234</p>
+                        <p class="text-sm font-bold text-gray-800">a.n <span class="text-black">Tiara</span></p>
+                        <button onclick="copyText('0967681234', 'Nomor Rekening')" class="mt-4 bg-black text-white px-6 py-2 rounded-lg text-xs font-bold flex items-center gap-2 mx-auto uppercase">
+                            Salin Nomor Rekening <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        </button>
+                    </div>
+
+                    <hr class="border-gray-200 mb-8">
+
+                    <div>
+                        <div class="mb-4">
+                            <svg class="w-10 h-10 mx-auto text-gray-800" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 5a3 3 0 015-2.236A3 3 0 0114.83 6H16a2 2 0 110 4h-5V9a1 1 0 10-2 0v1H4a2 2 0 110-4h1.17C5.06 5.687 5 5.35 5 5zm4 1V5a1 1 0 10-1 1h1zm3 0a1 1 0 10-1-1v1h1z" clip-rule="evenodd"></path><path d="M9 11H3v5a2 2 0 002 2h4v-7zM11 18h4a2 2 0 002-2v-5h-6v7z"></path></svg>
+                        </div>
+                        <p class="text-sm font-bold text-gray-600 mb-1">Kirim Kado</p>
+                        <p class="text-sm font-bold text-gray-800 italic" id="alamat-kado">Alamat kirim kado Tiara & Jati</p>
+                        <p class="text-sm font-bold text-gray-800">a.n <span class="text-black">Tiara</span></p>
+                        <button onclick="copyText('Alamat kirim kado Tiara & Jati', 'Alamat')" class="mt-4 bg-black text-white px-6 py-2 rounded-lg text-xs font-bold flex items-center gap-2 mx-auto uppercase">
+                            Salin Alamat <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </section>
 
         <!-- CLOSING -->
         <section class="pt-10 pb-20 px-4 text-center">
-            <div data-aos="fade-up" class="glass-panel p-10 md:p-20 w-full rounded-b-[5rem] border-b-0 shadow-2xl flex flex-col justify-center items-center pb-24">
+            <div data-aos="fade-up" class="glass-panel p-10 md:p-20 w-full rounded-b-[5rem] shadow-2xl flex flex-col justify-center items-center pb-24">
                 <p class="text-gray-100 text-base md:text-lg mb-10 leading-relaxed max-w-sm mx-auto font-medium">
                     Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Anda berkenan hadir.<br><br>Atas do'a & restunya, kami ucapkan terima kasih.
                 </p>
@@ -344,6 +386,34 @@
         function updateVh() {
             let vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+
+        function showGiftDetails() {
+            document.getElementById('gift-intro').style.display = 'none';
+            document.getElementById('gift-details').style.display = 'block';
+        }
+
+        function copyText(text, label) {
+            const toast = document.getElementById('toast');
+            const msg = document.getElementById('toast-msg');
+            
+            const showMsg = () => {
+                msg.innerText = label + " berhasil disalin!";
+                toast.classList.remove('opacity-0');
+                setTimeout(() => toast.classList.add('opacity-0'), 3000);
+            };
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(showMsg).catch(() => {
+                    const el = document.createElement('textarea');
+                    el.value = text;
+                    document.body.appendChild(el);
+                    el.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(el);
+                    showMsg();
+                });
+            }
         }
 
         function startCountdown() {
@@ -428,26 +498,6 @@
                 });
             }
         });
-
-        function copyRekening() {
-            const noRek = document.getElementById('rek-bni').innerText;
-            const toast = document.getElementById('toast');
-            const showMsg = () => {
-                toast.classList.remove('opacity-0');
-                setTimeout(() => toast.classList.add('opacity-0'), 3000);
-            };
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(noRek).then(showMsg).catch(() => {
-                    const el = document.createElement('textarea');
-                    el.value = noRek;
-                    document.body.appendChild(el);
-                    el.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(el);
-                    showMsg();
-                });
-            }
-        }
     </script>
 </body>
 </html>
