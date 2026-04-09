@@ -103,7 +103,7 @@
         }
 
         .glass-panel {
-            background: rgba(13, 22, 33, 0.82); 
+            background: rgba(13, 22, 33, 0.85); 
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(191, 149, 63, 0.2); 
@@ -121,6 +121,25 @@
             color: #000;
             font-weight: 700;
             box-shadow: 0 10px 25px rgba(170, 119, 28, 0.3);
+        }
+
+        .timer-box {
+            background: white;
+            color: #1a1a1a;
+            border-radius: 0.75rem;
+            width: 65px;
+            height: 65px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        @media (min-width: 768px) {
+            .timer-box {
+                width: 80px;
+                height: 80px;
+            }
         }
     </style>
 </head>
@@ -163,12 +182,10 @@
     <!-- KONTEN UTAMA -->
     <div id="main-content" class="hidden">
         
-        <!-- SECTION 1: HERO (Bingkai Oval Dihapus) -->
+        <!-- SECTION 1: HERO -->
         <section id="hero-section" class="fixed-h-screen relative flex flex-col items-center justify-center text-center px-4 overflow-hidden">
             <div id="hero-content" class="opacity-0 flex flex-col items-center">
-                <!-- Ukuran gambar tetap diperbesar -->
                 <img src="https://invite.leafitation.com/wp-content/uploads/2024/04/bulan-bunga.png" alt="Bulan Bunga" class="w-64 md:w-80 lg:w-96 mx-auto mb-8 drop-shadow-2xl">
-                
                 <p class="text-[10px] md:text-xs tracking-[0.5em] uppercase text-white mb-4 font-bold text-shadow-heavy">The Wedding Of</p>
                 <h1 class="text-5xl md:text-7xl lg:text-8xl text-white mb-6 font-bold text-shadow-heavy leading-tight">Tiara & Jati</h1>
                 <p class="text-sm md:text-base tracking-[0.6em] font-bold text-yellow-500 text-shadow-heavy">11 . 06 . 2026</p>
@@ -180,51 +197,142 @@
             </div>
         </section>
 
-        <!-- SECTION 2: QUOTE -->
-        <section class="py-24 px-6 text-center">
-            <div data-aos="fade-up" class="glass-panel p-10 relative">
-                <div class="absolute -top-7 left-1/2 -translate-x-1/2">
-                    <div class="bg-yellow-600 rounded-full p-4 shadow-xl border-4 border-[#0d1621]">
-                        <svg class="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <!-- SECTION 2: QUOTE & COUNTDOWN -->
+        <section class="py-24 px-4 text-center">
+            <div data-aos="fade-up" class="glass-panel p-8 md:p-12 relative max-w-xl mx-auto">
+                <p class="text-gray-100 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    “Dan diantara tanda-tanda kekuasaanNya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikanNya diantaramu rasa kasih dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berpikir.”
+                </p>
+                <p class="text-gray-300 font-bold tracking-widest text-sm md:text-base mb-12">
+                    (Qs. Ar. Rum (30) : 21)
+                </p>
+
+                <!-- Countdown Timer -->
+                <div class="flex justify-center gap-3 md:gap-5">
+                    <div class="timer-box">
+                        <span id="days" class="text-xl md:text-2xl font-bold">00</span>
+                        <span class="text-[10px] uppercase text-gray-500 font-bold">Days</span>
+                    </div>
+                    <div class="timer-box">
+                        <span id="hours" class="text-xl md:text-2xl font-bold">00</span>
+                        <span class="text-[10px] uppercase text-gray-500 font-bold">Hours</span>
+                    </div>
+                    <div class="timer-box">
+                        <span id="minutes" class="text-xl md:text-2xl font-bold">00</span>
+                        <span class="text-[10px] uppercase text-gray-500 font-bold">Minutes</span>
+                    </div>
+                    <div class="timer-box">
+                        <span id="seconds" class="text-xl md:text-2xl font-bold">00</span>
+                        <span class="text-[10px] uppercase text-gray-500 font-bold">Seconds</span>
                     </div>
                 </div>
-                <p class="text-gray-100 italic text-lg leading-relaxed mb-8 mt-6">
-                    "Dan diantara tanda-tanda kekuasaanNya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya."
-                </p>
-                <p class="text-yellow-500 font-bold tracking-widest text-sm">(Qs. Ar-Rum: 21)</p>
             </div>
         </section>
 
         <!-- SECTION 3: BRIDE & GROOM -->
-        <section class="py-16 px-6">
-            <div class="flex flex-col gap-12">
-                <div data-aos="fade-right" class="glass-panel p-8 border-l-8 border-l-yellow-600 text-center">
-                    <h3 class="font-script text-5xl text-white mb-3">Tiara Terang Bintang</h3>
-                    <p class="text-gray-300 text-sm font-medium">Putri dari Bapak Thomas Laksono & Ibu Rachma Aurora</p>
+        <section class="py-16 px-4 text-center">
+            <h2 data-aos="fade-down" class="text-3xl md:text-4xl text-white font-bold mb-8 tracking-[0.2em]">Bride & Groom</h2>
+            
+            <div data-aos="fade-up" class="glass-panel border-4 border-white/90 rounded-[3rem] p-8 md:p-12 max-w-xl mx-auto space-y-12 shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <div class="space-y-4">
+                    <p class="text-sm md:text-base font-medium text-gray-200">Assalamualaikum Wr. Wb.</p>
+                    <p class="text-xs md:text-sm text-gray-300 leading-relaxed px-4 md:px-10">
+                        Dengan memohon Rahmat & Ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan putra-putri kami:
+                    </p>
                 </div>
-                <div data-aos="zoom-in" class="text-center text-5xl font-script text-yellow-600">&</div>
-                <div data-aos="fade-left" class="glass-panel p-8 border-r-8 border-r-yellow-600 text-center">
-                    <h3 class="font-script text-5xl text-white mb-3">Jati Alamsyah</h3>
-                    <p class="text-gray-300 text-sm font-medium">Putra dari Bapak James Santoso & Ibu Angelita Joyoningrat</p>
+
+                <!-- Bride Details -->
+                <div class="flex flex-col items-center">
+                    <h3 class="font-script text-7xl md:text-8xl text-white mb-1">Tiara</h3>
+                    <h4 class="text-xl md:text-2xl font-bold text-white tracking-wide">Tiara Terang Bintang</h4>
+                    <p class="text-xs md:text-sm text-gray-300 mt-4 leading-relaxed">
+                        Putri dari Bapak Thomas Laksono &<br>Ibu Rachma Aurora
+                    </p>
+                    <a href="#" class="text-[10px] md:text-xs font-black text-white italic underline mt-6 tracking-[0.2em] uppercase hover:text-yellow-500 transition-colors">
+                        Instagram Tiara >>>
+                    </a>
+                </div>
+
+                <div class="text-5xl md:text-6xl font-script text-white py-2">&</div>
+
+                <!-- Groom Details -->
+                <div class="flex flex-col items-center">
+                    <h3 class="font-script text-7xl md:text-8xl text-white mb-1">Jati</h3>
+                    <h4 class="text-xl md:text-2xl font-bold text-white tracking-wide">Jati Alamsyah</h4>
+                    <p class="text-xs md:text-sm text-gray-300 mt-4 leading-relaxed">
+                        Putra dari Bapak James Santoso &<br>Ibu Angelita Joyoningrat
+                    </p>
+                    <a href="#" class="text-[10px] md:text-xs font-black text-white italic underline mt-6 tracking-[0.2em] uppercase hover:text-yellow-500 transition-colors">
+                        Instagram Jati >>>
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 4: GIFT -->
-        <section class="py-24 px-6 text-center">
-            <h2 data-aos="fade-up" class="font-script text-6xl text-yellow-500 mb-8">Wedding Gift</h2>
-            <div data-aos="zoom-in" class="glass-panel p-8 max-w-sm mx-auto">
-                <p class="font-black text-xl uppercase text-white mb-4">Bank BNI</p>
-                <p class="text-3xl font-mono text-yellow-500 font-black mb-4" id="rek-bni">0967681234</p>
-                <p class="text-sm text-gray-300 mb-8 font-bold">a.n Tiara Terang Bintang</p>
-                <button onclick="copyRekening()" class="w-full bg-yellow-600 text-black py-4 rounded-full font-black tracking-widest uppercase active:scale-95 transition-transform">Salin Rekening</button>
+        <!-- SECTION 4: EVENTS -->
+        <section class="py-20 px-4 text-center overflow-hidden">
+            <h2 data-aos="fade-down" class="font-script text-6xl md:text-7xl text-yellow-500 mb-12 text-shadow-heavy">Wedding Event</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Akad Nikah -->
+                <div data-aos="flip-left" class="glass-panel p-10 rounded-[2.5rem] flex flex-col items-center">
+                    <div class="w-16 h-16 rounded-full border-2 border-yellow-600 flex items-center justify-center mb-6 text-yellow-500 bg-black/30 shadow-inner">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    </div>
+                    <h3 class="text-2xl md:text-3xl font-bold tracking-widest text-white mb-3">Akad Nikah</h3>
+                    <div class="h-px w-16 bg-yellow-600/50 my-2"></div>
+                    <p class="font-bold text-lg text-white mt-2">Minggu, 11 Juni 2026</p>
+                    <p class="text-yellow-500 text-base mb-5 font-black uppercase tracking-widest">08.00 WIB - Selesai</p>
+                    <p class="text-sm md:text-base text-gray-200 leading-relaxed mb-8">
+                        <strong class="block text-white text-lg mb-1">Hotel Marriott Yogyakarta</strong>
+                        Jl. Ring Road Utara, Kaliwaru, Condongcatur, Yogyakarta
+                    </p>
+                    <a href="https://maps.app.goo.gl/z7Asx9BvxWtzepZA7" target="_blank" class="mt-auto bg-white/5 border-2 border-yellow-600 text-yellow-500 hover:bg-yellow-600 hover:text-black transition px-8 py-3 rounded-full text-xs font-black tracking-widest uppercase w-full">Lihat Peta</a>
+                </div>
+
+                <!-- Resepsi -->
+                <div data-aos="flip-right" class="glass-panel p-10 rounded-[2.5rem] flex flex-col items-center">
+                    <div class="w-16 h-16 rounded-full border-2 border-yellow-600 flex items-center justify-center mb-6 text-yellow-500 bg-black/30 shadow-inner">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl md:text-3xl font-bold tracking-widest text-white mb-3">Resepsi</h3>
+                    <div class="h-px w-16 bg-yellow-600/50 my-2"></div>
+                    <p class="font-bold text-lg text-white mt-2">Minggu, 11 Juni 2026</p>
+                    <p class="text-yellow-500 text-base mb-5 font-black uppercase tracking-widest">11.00 - 14.00 WIB</p>
+                    <p class="text-sm md:text-base text-gray-200 leading-relaxed mb-8">
+                        <strong class="block text-white text-lg mb-1">Hotel Marriott Yogyakarta</strong>
+                        Jl. Ring Road Utara, Kaliwaru, Condongcatur, Yogyakarta
+                    </p>
+                    <a href="https://maps.app.goo.gl/z7Asx9BvxWtzepZA7" target="_blank" class="mt-auto bg-white/5 border-2 border-yellow-600 text-yellow-500 hover:bg-yellow-600 hover:text-black transition px-8 py-3 rounded-full text-xs font-black tracking-widest uppercase w-full">Lihat Peta</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: GIFT -->
+        <section class="py-20 px-4 text-center">
+            <h2 data-aos="fade-up" class="font-script text-6xl md:text-7xl text-yellow-500 mb-6 text-shadow-heavy">Wedding Gift</h2>
+            <p data-aos="fade-up" class="text-gray-200 text-sm md:text-base mb-10 max-w-md mx-auto font-medium">Doa restu Anda merupakan karunia terindah. Namun jika memberi adalah ungkapan tanda kasih, Anda dapat mengirimkannya secara cashless.</p>
+            
+            <div data-aos="zoom-in" class="glass-panel p-8 md:p-10 rounded-[3rem] w-full max-w-[350px] mx-auto border-t-2 border-t-yellow-600/30">
+                <p class="font-black tracking-[0.2em] mb-2 text-xl uppercase text-white">Bank BNI</p>
+                <div class="h-0.5 w-full bg-yellow-600/20 mb-6 mt-2"></div>
+                <p class="text-3xl md:text-4xl tracking-[0.1em] font-mono text-yellow-500 font-black mb-3" id="rek-bni">0967681234</p>
+                <p class="text-sm text-gray-300 mb-8 uppercase tracking-widest font-bold">a.n Tiara Terang Bintang</p>
+                
+                <button onclick="copyRekening()" class="w-full bg-yellow-600 hover:bg-yellow-500 text-black py-4 rounded-full transition flex items-center justify-center gap-3 text-sm font-black tracking-widest shadow-xl border-none outline-none cursor-pointer">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    SALIN REKENING
+                </button>
             </div>
         </section>
 
         <!-- CLOSING -->
-        <section class="pt-10 pb-24 px-6 text-center">
-            <div data-aos="fade-up" class="glass-panel p-16">
-                <h1 class="font-script text-7xl text-yellow-500">Tiara & Jati</h1>
+        <section class="pt-10 pb-20 px-4 text-center">
+            <div data-aos="fade-up" class="glass-panel p-10 md:p-20 w-full rounded-b-[5rem] border-b-0 shadow-2xl flex flex-col justify-center items-center pb-24">
+                <p class="text-gray-100 text-base md:text-lg mb-10 leading-relaxed max-w-sm mx-auto font-medium">
+                    Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Anda berkenan hadir.<br><br>Atas do'a & restunya, kami ucapkan terima kasih.
+                </p>
+                <h1 class="font-script text-6xl md:text-8xl text-yellow-500 text-shadow-heavy">Tiara & Jati</h1>
             </div>
         </section>
 
@@ -238,9 +346,27 @@
             document.documentElement.style.setProperty('--vh', `${vh}px`);
         }
 
+        function startCountdown() {
+            const weddingDate = new Date("June 11, 2026 08:00:00").getTime();
+            setInterval(() => {
+                const now = new Date().getTime();
+                const distance = weddingDate - now;
+                const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((distance % (1000 * 60)) / 1000);
+                if (distance > 0) {
+                    document.getElementById("days").innerText = d < 10 ? '0' + d : d;
+                    document.getElementById("hours").innerText = h < 10 ? '0' + h : h;
+                    document.getElementById("minutes").innerText = m < 10 ? '0' + m : m;
+                    document.getElementById("seconds").innerText = s < 10 ? '0' + s : s;
+                }
+            }, 1000);
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             updateVh();
-            
+            startCountdown();
             let lastWidth = window.innerWidth;
             window.addEventListener('resize', () => {
                 if (window.innerWidth !== lastWidth) {
@@ -278,11 +404,9 @@
                     window.requestAnimationFrame(() => {
                         const scrollPos = window.scrollY;
                         const opacity = Math.max(0, 1 - (scrollPos / 550));
-
                         if (bgFallback) bgFallback.style.opacity = opacity;
                         if (heroContent) heroContent.style.opacity = opacity;
                         if (scrollIndicator) scrollIndicator.style.opacity = opacity;
-                        
                         ticking = false;
                     });
                     ticking = true;
