@@ -18,7 +18,6 @@
 
     <style>
         :root {
-            /* Fallback jika JS belum jalan */
             --vh: 1vh;
         }
 
@@ -28,7 +27,6 @@
             color: #f3f4f6;
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
-            /* Mencegah tarikan refresh di Chrome mobile */
             overscroll-behavior-y: none;
         }
         
@@ -36,13 +34,11 @@
             font-family: 'Great Vibes', cursive;
         }
 
-        /* Kelas untuk tinggi viewport yang dikunci JS */
         .fixed-h-screen {
             height: 100vh;
             height: calc(var(--vh, 1vh) * 100);
         }
 
-        /* Overlay Gelap */
         .bg-overlay::after {
             content: '';
             position: absolute;
@@ -51,7 +47,6 @@
             z-index: 1;
         }
 
-        /* Background Dasar Statis */
         #bg-design {
             position: fixed;
             inset: 0;
@@ -63,7 +58,6 @@
             transform: translate3d(0,0,0);
         }
 
-        /* Hero Background - Dikunci tingginya agar tidak zoom */
         #bg-fallback {
             position: fixed;
             inset: 0;
@@ -76,7 +70,6 @@
             transform: translate3d(0,0,0);
         }
 
-        /* Video Background */
         #bg-video {
             position: fixed;
             inset: 0;
@@ -89,7 +82,6 @@
             will-change: opacity;
         }
 
-        /* Welcome Gate */
         #welcome-gate {
             position: fixed;
             inset: 0;
@@ -110,7 +102,6 @@
             transform: translate3d(0, -20px, 0);
         }
 
-        /* Efek Kaca (Warna Navy/Teal Gelap) */
         .glass-panel {
             background: rgba(13, 22, 33, 0.82); 
             backdrop-filter: blur(15px);
@@ -135,7 +126,7 @@
 </head>
 <body class="antialiased">
 
-    <!-- Toast Notification -->
+    <!-- Notifikasi Toast -->
     <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 bg-yellow-600 text-white px-6 py-3 rounded-full shadow-lg transition-all duration-300 opacity-0 pointer-events-none z-[200] text-sm font-semibold flex items-center gap-2">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
         <span id="toast-msg">Nomor disalin!</span>
@@ -144,15 +135,15 @@
     <!-- BACKGROUND GLOBAL -->
     <div id="bg-design" class="bg-overlay" style="background-image: url('https://invite.leafitation.com/wp-content/uploads/2025/01/NIGHT-FAIRY-TALE-DESIGN.jpg');"></div>
 
-    <!-- BACKGROUND HERO (Memudar saat scroll) -->
+    <!-- BACKGROUND HERO -->
     <div id="bg-fallback" class="bg-overlay" style="background-image: url('https://invite.leafitation.com/wp-content/uploads/2025/01/NIGHT-FAIRY-TALE-FALLBACK.jpg');"></div>
 
-    <!-- VIDEO BACKGROUND -->
+    <!-- BACKGROUND VIDEO -->
     <video id="bg-video" muted playsinline webkit-playsinline preload="auto">
         <source src="https://invite.leafitation.com/wp-content/uploads/2025/07/3D-motion-fairytale-compressed.mp4" type="video/mp4">
     </video>
 
-    <!-- WELCOME GATE (Sampul) -->
+    <!-- PINTU SELAMAT DATANG -->
     <div id="welcome-gate" class="fixed-h-screen" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('https://invite.leafitation.com/wp-content/uploads/2024/05/fairytale-sampul.jpg');">
         <div class="mb-6 animate-pulse">
             <svg class="w-12 h-12 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
@@ -169,16 +160,18 @@
         </button>
     </div>
 
-    <!-- MAIN CONTENT -->
+    <!-- KONTEN UTAMA -->
     <div id="main-content" class="hidden">
         
-        <!-- SECTION 1: HERO -->
-        <section id="hero-section" class="fixed-h-screen relative flex flex-col items-center justify-center text-center px-4">
-            <div id="hero-content" class="opacity-0">
-                <img src="https://invite.leafitation.com/wp-content/uploads/2024/04/bulan-bunga.png" alt="Bulan Bunga" class="w-32 md:w-40 mx-auto mb-6 drop-shadow-2xl">
-                <p class="text-[10px] tracking-[0.4em] uppercase text-white mb-2 font-bold text-shadow-heavy">The Wedding Of</p>
-                <h1 class="text-5xl md:text-6xl text-white mb-4 font-bold text-shadow-heavy">Tiara & Jati</h1>
-                <p class="text-sm tracking-[0.5em] font-bold text-yellow-500">11 . 06 . 2026</p>
+        <!-- SECTION 1: HERO (Bingkai Oval Dihapus) -->
+        <section id="hero-section" class="fixed-h-screen relative flex flex-col items-center justify-center text-center px-4 overflow-hidden">
+            <div id="hero-content" class="opacity-0 flex flex-col items-center">
+                <!-- Ukuran gambar tetap diperbesar -->
+                <img src="https://invite.leafitation.com/wp-content/uploads/2024/04/bulan-bunga.png" alt="Bulan Bunga" class="w-64 md:w-80 lg:w-96 mx-auto mb-8 drop-shadow-2xl">
+                
+                <p class="text-[10px] md:text-xs tracking-[0.5em] uppercase text-white mb-4 font-bold text-shadow-heavy">The Wedding Of</p>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl text-white mb-6 font-bold text-shadow-heavy leading-tight">Tiara & Jati</h1>
+                <p class="text-sm md:text-base tracking-[0.6em] font-bold text-yellow-500 text-shadow-heavy">11 . 06 . 2026</p>
             </div>
             
             <div id="scroll-indicator" class="opacity-0 absolute bottom-10 w-full flex flex-col items-center animate-bounce pointer-events-none">
@@ -207,12 +200,12 @@
             <div class="flex flex-col gap-12">
                 <div data-aos="fade-right" class="glass-panel p-8 border-l-8 border-l-yellow-600 text-center">
                     <h3 class="font-script text-5xl text-white mb-3">Tiara Terang Bintang</h3>
-                    <p class="text-gray-300 text-sm">Putri dari Bapak Thomas Laksono & Ibu Rachma Aurora</p>
+                    <p class="text-gray-300 text-sm font-medium">Putri dari Bapak Thomas Laksono & Ibu Rachma Aurora</p>
                 </div>
                 <div data-aos="zoom-in" class="text-center text-5xl font-script text-yellow-600">&</div>
                 <div data-aos="fade-left" class="glass-panel p-8 border-r-8 border-r-yellow-600 text-center">
                     <h3 class="font-script text-5xl text-white mb-3">Jati Alamsyah</h3>
-                    <p class="text-gray-300 text-sm">Putra dari Bapak James Santoso & Ibu Angelita Joyoningrat</p>
+                    <p class="text-gray-300 text-sm font-medium">Putra dari Bapak James Santoso & Ibu Angelita Joyoningrat</p>
                 </div>
             </div>
         </section>
@@ -223,7 +216,7 @@
             <div data-aos="zoom-in" class="glass-panel p-8 max-w-sm mx-auto">
                 <p class="font-black text-xl uppercase text-white mb-4">Bank BNI</p>
                 <p class="text-3xl font-mono text-yellow-500 font-black mb-4" id="rek-bni">0967681234</p>
-                <p class="text-sm text-gray-300 mb-8">a.n Tiara Terang Bintang</p>
+                <p class="text-sm text-gray-300 mb-8 font-bold">a.n Tiara Terang Bintang</p>
                 <button onclick="copyRekening()" class="w-full bg-yellow-600 text-black py-4 rounded-full font-black tracking-widest uppercase active:scale-95 transition-transform">Salin Rekening</button>
             </div>
         </section>
@@ -240,18 +233,14 @@
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // FUNGSI KRITIKAL: Lock Viewport Height
         function updateVh() {
-            // Kita menghitung window.innerHeight tepat satu kali untuk mengunci ukuran
             let vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Jalankan updateVh segera
             updateVh();
             
-            // Hanya update saat rotasi layar atau perubahan lebar (bukan scroll)
             let lastWidth = window.innerWidth;
             window.addEventListener('resize', () => {
                 if (window.innerWidth !== lastWidth) {
@@ -283,14 +272,12 @@
                 });
             }
 
-            // Scroll Handler Optimized for Chrome
             let ticking = false;
             window.addEventListener('scroll', () => {
                 if (!ticking) {
                     window.requestAnimationFrame(() => {
                         const scrollPos = window.scrollY;
-                        // Opacity fading dalam rentang 450px
-                        const opacity = Math.max(0, 1 - (scrollPos / 450));
+                        const opacity = Math.max(0, 1 - (scrollPos / 550));
 
                         if (bgFallback) bgFallback.style.opacity = opacity;
                         if (heroContent) heroContent.style.opacity = opacity;
@@ -305,25 +292,13 @@
             if (btnBuka) {
                 btnBuka.addEventListener('click', function(e) {
                     e.preventDefault();
-                    
-                    // Kunci ulang VH sesaat sebelum buka untuk presisi
                     updateVh();
-
-                    if (bgVideo) {
-                        bgVideo.play().catch(() => {});
-                    }
-
+                    if (bgVideo) { bgVideo.play().catch(() => {}); }
                     welcomeGate.classList.add('gate-hidden');
-                    
                     setTimeout(() => {
                         welcomeGate.style.display = 'none';
                         mainContent.classList.remove('hidden');
-                        
-                        AOS.init({ 
-                            duration: 1000, 
-                            once: true
-                        });
-                        
+                        AOS.init({ duration: 1000, once: true });
                         window.scrollTo(0, 0);
                     }, 600); 
                 });
@@ -333,12 +308,10 @@
         function copyRekening() {
             const noRek = document.getElementById('rek-bni').innerText;
             const toast = document.getElementById('toast');
-            
             const showMsg = () => {
                 toast.classList.remove('opacity-0');
                 setTimeout(() => toast.classList.add('opacity-0'), 3000);
             };
-
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(noRek).then(showMsg).catch(() => {
                     const el = document.createElement('textarea');
