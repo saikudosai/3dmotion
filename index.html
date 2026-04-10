@@ -113,8 +113,9 @@
             transform: translate3d(0,0,0);
         }
 
+        /* Bayangan teks diperkuat agar terbaca di background terang */
         .text-shadow-heavy {
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 1), 0 0 20px rgba(0, 0, 0, 0.8);
         }
 
         .btn-gold {
@@ -124,7 +125,6 @@
             box-shadow: 0 10px 25px rgba(170, 119, 28, 0.3);
         }
 
-        /* Tombol Klik Di Sini Brown/Gold Gradient */
         .btn-click-here {
             background: linear-gradient(to right, #9e7e4d, #c4a46d, #9e7e4d);
             color: white;
@@ -156,7 +156,6 @@
             .timer-box { width: 80px; height: 80px; }
         }
 
-        /* Modal/Details View */
         .gift-details-card {
             background: white;
             color: #1a1a1a;
@@ -165,7 +164,7 @@
             width: 100%;
             max-width: 400px;
             margin: 0 auto;
-            display: none; /* Awalnya sembunyi */
+            display: none;
             animation: fadeIn 0.5s ease;
         }
 
@@ -194,16 +193,16 @@
         <source src="https://invite.leafitation.com/wp-content/uploads/2025/07/3D-motion-fairytale-compressed.mp4" type="video/mp4">
     </video>
 
-    <!-- PINTU SELAMAT DATANG -->
-    <div id="welcome-gate" class="fixed-h-screen" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('https://invite.leafitation.com/wp-content/uploads/2024/05/fairytale-sampul.jpg');">
+    <!-- PINTU SELAMAT DATANG (Overlay Gelap Dihapus) -->
+    <div id="welcome-gate" class="fixed-h-screen" style="background-image: url('https://invite.leafitation.com/wp-content/uploads/2024/05/fairytale-sampul.jpg');">
         <div class="mb-6 animate-pulse">
-            <svg class="w-12 h-12 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+            <svg class="w-12 h-12 text-yellow-500 drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
         </div>
-        <p class="text-xs tracking-[0.4em] uppercase text-gray-300 mb-4 font-bold text-shadow-heavy">The Wedding Of</p>
+        <p class="text-xs tracking-[0.4em] uppercase text-white mb-4 font-bold text-shadow-heavy">The Wedding Of</p>
         <h1 class="font-script text-6xl md:text-8xl text-white mb-8 text-shadow-heavy">Tiara & Jati</h1>
         <div class="mb-10 text-center">
-            <p class="text-sm text-gray-300 mb-2 font-medium">Kepada Yth. Bapak/Ibu/Saudara/i</p>
-            <p class="font-bold text-xl text-white border-b-2 border-yellow-600 inline-block pb-1 tracking-wider px-2">Tamu Undangan</p>
+            <p class="text-sm text-white mb-2 font-medium text-shadow-heavy">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+            <p class="font-bold text-xl text-white border-b-2 border-yellow-600 inline-block pb-1 tracking-wider px-2 text-shadow-heavy">Tamu Undangan</p>
         </div>
         <button id="btn-buka" class="btn-gold px-12 py-4 rounded-full tracking-widest flex items-center gap-3 shadow-2xl cursor-pointer uppercase transition-transform active:scale-95">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76"></path></svg>
@@ -271,14 +270,14 @@
                 <div class="flex flex-col items-center">
                     <h3 class="font-script text-7xl md:text-8xl text-white mb-1">Tiara</h3>
                     <h4 class="text-xl md:text-2xl font-bold text-white tracking-wide">Tiara Terang Bintang</h4>
-                    <p class="text-xs md:text-sm text-gray-300 mt-4">Putri dari Bapak Thomas Laksono & Ibu Rachma Aurora</p>
+                    <p class="text-xs md:text-sm text-gray-300 mt-4 leading-relaxed">Putri dari Bapak Thomas Laksono & Ibu Rachma Aurora</p>
                     <a href="#" class="text-[10px] md:text-xs font-black text-white italic underline mt-6 tracking-[0.2em] uppercase hover:text-yellow-500 transition-colors">Instagram Tiara >>></a>
                 </div>
                 <div class="text-5xl md:text-6xl font-script text-white py-2">&</div>
                 <div class="flex flex-col items-center">
                     <h3 class="font-script text-7xl md:text-8xl text-white mb-1">Jati</h3>
                     <h4 class="text-xl md:text-2xl font-bold text-white tracking-wide">Jati Alamsyah</h4>
-                    <p class="text-xs md:text-sm text-gray-300 mt-4">Putra dari Bapak James Santoso & Ibu Angelita Joyoningrat</p>
+                    <p class="text-xs md:text-sm text-gray-300 mt-4 leading-relaxed">Putra dari Bapak James Santoso & Ibu Angelita Joyoningrat</p>
                     <a href="#" class="text-[10px] md:text-xs font-black text-white italic underline mt-6 tracking-[0.2em] uppercase hover:text-yellow-500 transition-colors">Instagram Jati >>></a>
                 </div>
             </div>
@@ -324,8 +323,6 @@
         <!-- SECTION 5: GIFT -->
         <section class="py-20 px-4 text-center">
             <div data-aos="zoom-in" class="glass-panel p-8 md:p-12 max-w-xl mx-auto flex flex-col items-center">
-                
-                <!-- Intro View -->
                 <div id="gift-intro">
                     <img src="https://invite.leafitation.com/wp-content/uploads/2025/01/bunga-fa.png" alt="Bunga" class="w-48 md:w-64 mx-auto mb-8 drop-shadow-xl">
                     <h2 class="text-4xl md:text-6xl text-white font-bold mb-8 tracking-widest">Wedding Gift</h2>
@@ -338,10 +335,8 @@
                     </button>
                 </div>
 
-                <!-- Detail View Card -->
                 <div id="gift-details" class="gift-details-card">
                     <div class="mb-8">
-                        <!-- New BNI Logo Link -->
                         <img src="https://invite.leafitation.com/wp-content/uploads/2024/06/bni.png" alt="BNI" class="h-10 mx-auto mb-2">
                         <p class="text-xs font-bold text-gray-600 mb-1 uppercase tracking-widest">Bank BNI</p>
                         <p class="text-xl font-mono font-bold text-gray-800" id="rek-bni">0967681234</p>
@@ -350,9 +345,7 @@
                             Salin Nomor Rekening <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                         </button>
                     </div>
-
                     <hr class="border-gray-200 mb-8">
-
                     <div>
                         <div class="mb-4">
                             <svg class="w-10 h-10 mx-auto text-gray-800" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 5a3 3 0 015-2.236A3 3 0 0114.83 6H16a2 2 0 110 4h-5V9a1 1 0 10-2 0v1H4a2 2 0 110-4h1.17C5.06 5.687 5 5.35 5 5zm4 1V5a1 1 0 10-1 1h1zm3 0a1 1 0 10-1-1v1h1z" clip-rule="evenodd"></path><path d="M9 11H3v5a2 2 0 002 2h4v-7zM11 18h4a2 2 0 002-2v-5h-6v7z"></path></svg>
@@ -365,7 +358,6 @@
                         </button>
                     </div>
                 </div>
-
             </div>
         </section>
 
@@ -375,7 +367,7 @@
                 <p class="text-gray-100 text-base md:text-lg mb-10 leading-relaxed max-w-sm mx-auto font-medium">
                     Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Anda berkenan hadir.<br><br>Atas do'a & restunya, kami ucapkan terima kasih.
                 </p>
-                <h1 class="font-script text-6xl md:text-8xl text-yellow-500 text-shadow-heavy">Tiara & Jati</h1>
+                <h1 class="font-script text-6xl md:text-8xl text-white mb-8 text-shadow-heavy">Tiara & Jati</h1>
             </div>
         </section>
 
@@ -397,13 +389,11 @@
         function copyText(text, label) {
             const toast = document.getElementById('toast');
             const msg = document.getElementById('toast-msg');
-            
             const showMsg = () => {
                 msg.innerText = label + " berhasil disalin!";
                 toast.classList.remove('opacity-0');
                 setTimeout(() => toast.classList.add('opacity-0'), 3000);
             };
-
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(text).then(showMsg).catch(() => {
                     const el = document.createElement('textarea');
