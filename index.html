@@ -92,14 +92,13 @@
             justify-content: center;
             background-size: cover;
             background-position: center;
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-            will-change: transform, opacity;
+            transition: opacity 0.8s ease-out;
+            will-change: opacity;
         }
 
         .gate-hidden {
             opacity: 0;
             visibility: hidden;
-            transform: translate3d(0, -20px, 0);
         }
 
         /* Gaya Sempadan Putih Tebal */
@@ -113,7 +112,6 @@
             transform: translate3d(0,0,0);
         }
 
-        /* Bayangan teks diperkuat agar terbaca di background terang */
         .text-shadow-heavy {
             text-shadow: 0 4px 10px rgba(0, 0, 0, 1), 0 0 20px rgba(0, 0, 0, 0.8);
         }
@@ -172,9 +170,23 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Overlay Putih untuk transisi */
+        #white-transition {
+            position: fixed;
+            inset: 0;
+            background: white;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease-in-out;
+        }
     </style>
 </head>
 <body class="antialiased">
+
+    <!-- Overlay Transisi Putih -->
+    <div id="white-transition"></div>
 
     <!-- Notifikasi Toast -->
     <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 bg-yellow-600 text-white px-6 py-3 rounded-full shadow-lg transition-all duration-300 opacity-0 pointer-events-none z-[200] text-sm font-semibold flex items-center gap-2">
@@ -193,7 +205,7 @@
         <source src="https://invite.leafitation.com/wp-content/uploads/2025/07/3D-motion-fairytale-compressed.mp4" type="video/mp4">
     </video>
 
-    <!-- PINTU SELAMAT DATANG (Overlay Gelap Dihapus) -->
+    <!-- PINTU SELAMAT DATANG -->
     <div id="welcome-gate" class="fixed-h-screen" style="background-image: url('https://invite.leafitation.com/wp-content/uploads/2024/05/fairytale-sampul.jpg');">
         <div class="mb-6 animate-pulse">
             <svg class="w-12 h-12 text-yellow-500 drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
@@ -367,7 +379,7 @@
                 <p class="text-gray-100 text-base md:text-lg mb-10 leading-relaxed max-w-sm mx-auto font-medium">
                     Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Anda berkenan hadir.<br><br>Atas do'a & restunya, kami ucapkan terima kasih.
                 </p>
-                <h1 class="font-script text-6xl md:text-8xl text-white mb-8 text-shadow-heavy">Tiara & Jati</h1>
+                <h1 class="font-script text-6xl md:text-8xl text-yellow-500 text-shadow-heavy">Tiara & Jati</h1>
             </div>
         </section>
 
@@ -445,6 +457,7 @@
             const heroContent = document.getElementById('hero-content');
             const scrollIndicator = document.getElementById('scroll-indicator');
             const bgFallback = document.getElementById('bg-fallback');
+            const whiteTransition = document.getElementById('white-transition');
 
             if (bgVideo) {
                 bgVideo.addEventListener('ended', () => {
@@ -479,15 +492,29 @@
             if (btnBuka) {
                 btnBuka.addEventListener('click', function(e) {
                     e.preventDefault();
-                    updateVh();
-                    if (bgVideo) { bgVideo.play().catch(() => {}); }
-                    welcomeGate.classList.add('gate-hidden');
+                    
+                    // Aktifkan overlay putih (pudar ke putih)
+                    whiteTransition.style.opacity = '1';
+                    
                     setTimeout(() => {
-                        welcomeGate.style.display = 'none';
+                        updateVh();
+                        if (bgVideo) { bgVideo.play().catch(() => {}); }
+                        
+                        // Sembunyikan gate & tampilkan konten saat layar putih
+                        welcomeGate.classList.add('gate-hidden');
                         mainContent.classList.remove('hidden');
-                        AOS.init({ duration: 1000, once: true });
+                        
+                        // Scroll ke atas untuk memastikan posisi awal
                         window.scrollTo(0, 0);
-                    }, 600); 
+
+                        // Pudar overlay putih kembali ke transparan
+                        setTimeout(() => {
+                            whiteTransition.style.opacity = '0';
+                            
+                            // Jalankan AOS setelah transisi selesai
+                            AOS.init({ duration: 1000, once: true });
+                        }, 50);
+                    }, 800); 
                 });
             }
         });
