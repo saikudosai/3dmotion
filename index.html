@@ -396,6 +396,51 @@
             </div>
         </section>
 
+        <!-- SECTION 6: RSVP & WISHES -->
+        <section class="py-20 px-4 text-center">
+            <h2 data-aos="fade-down" class="text-3xl md:text-4xl text-white font-bold mb-12 tracking-[0.2em] uppercase">RSVP & Ucapan</h2>
+            <div data-aos="fade-up" class="glass-panel p-8 md:p-12 max-w-xl mx-auto text-left relative z-10">
+                <p class="text-gray-200 text-sm md:text-base mb-8 text-center leading-relaxed">
+                    Merupakan suatu kebahagiaan bagi kami jika Bapak/Ibu/Saudara/i berkenan hadir. Mohon konfirmasi kehadiran Anda melalui form di bawah ini.
+                </p>
+                <form id="rsvp-form" class="space-y-5">
+                    <div>
+                        <label for="rsvp-name" class="block text-xs font-bold tracking-widest text-gray-300 mb-2 uppercase">Nama Lengkap</label>
+                        <input type="text" id="rsvp-name" required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:bg-white/10 focus:border-white/50 transition-all" placeholder="Masukkan nama Anda">
+                    </div>
+                    
+                    <div>
+                        <label for="rsvp-attendance" class="block text-xs font-bold tracking-widest text-gray-300 mb-2 uppercase">Kehadiran</label>
+                        <select id="rsvp-attendance" required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/20 text-white focus:outline-none focus:bg-white/10 focus:border-white/50 transition-all appearance-none cursor-pointer">
+                            <option value="" disabled selected class="text-black">Apakah Anda akan hadir?</option>
+                            <option value="Hadir" class="text-black">Ya, Saya akan hadir</option>
+                            <option value="Tidak Hadir" class="text-black">Maaf, saya tidak bisa hadir</option>
+                        </select>
+                    </div>
+
+                    <div id="guest-count-container">
+                        <label for="rsvp-guests" class="block text-xs font-bold tracking-widest text-gray-300 mb-2 uppercase">Jumlah Tamu</label>
+                        <select id="rsvp-guests" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/20 text-white focus:outline-none focus:bg-white/10 focus:border-white/50 transition-all appearance-none cursor-pointer">
+                            <option value="1" class="text-black">1 Orang</option>
+                            <option value="2" class="text-black">2 Orang</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="rsvp-message" class="block text-xs font-bold tracking-widest text-gray-300 mb-2 uppercase">Ucapan & Doa</label>
+                        <textarea id="rsvp-message" rows="4" required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:bg-white/10 focus:border-white/50 transition-all resize-none" placeholder="Tulis ucapan dan doa untuk kedua mempelai..."></textarea>
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="submit" class="w-full bg-white text-black font-bold py-3.5 px-6 rounded-xl hover:bg-gray-200 transition-colors uppercase tracking-widest shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] flex justify-center items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                            Kirim via WhatsApp
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
         <!-- CLOSING -->
         <section class="pt-10 pb-20 px-4 text-center">
             <div data-aos="fade-up" class="glass-panel p-10 md:p-20 w-full rounded-b-[5rem] shadow-2xl flex flex-col justify-center items-center pb-24">
@@ -595,6 +640,56 @@
                     }, 800); 
                 });
             }
+
+            // RSVP Logic
+            const rsvpAttendance = document.getElementById('rsvp-attendance');
+            const guestCountContainer = document.getElementById('guest-count-container');
+
+            // Hide guest count if not attending
+            rsvpAttendance.addEventListener('change', function() {
+                if (this.value === 'Tidak Hadir') {
+                    guestCountContainer.style.display = 'none';
+                } else {
+                    guestCountContainer.style.display = 'block';
+                }
+            });
+
+            document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('rsvp-name').value;
+                const attendance = document.getElementById('rsvp-attendance').value;
+                const guests = document.getElementById('rsvp-guests').value;
+                const message = document.getElementById('rsvp-message').value;
+
+                // Nomor WhatsApp tujuan RSVP (Nomor Mempelai)
+                // Ganti "6281234567890" dengan nomor WhatsApp mempelai yang sebenarnya (gunakan 62 di awal)
+                const waNumber = "6281234567890"; 
+                
+                let waText = `*Konfirmasi Kehadiran Undangan Rama & Shinta*%0A%0A`;
+                waText += `Nama: *${name}*%0A`;
+                waText += `Kehadiran: *${attendance}*%0A`;
+                
+                if (attendance === 'Hadir') {
+                    waText += `Jumlah Tamu: *${guests} Orang*%0A`;
+                }
+                
+                waText += `%0A*Ucapan & Doa:*%0A"${message}"%0A`;
+
+                // Buka link WhatsApp
+                window.open(`https://wa.me/${waNumber}?text=${waText}`, '_blank');
+
+                // Tampilkan notifikasi
+                const toast = document.getElementById('toast');
+                const msg = document.getElementById('toast-msg');
+                msg.innerText = "Membuka WhatsApp...";
+                toast.classList.remove('opacity-0');
+                setTimeout(() => toast.classList.add('opacity-0'), 3000);
+
+                // Reset form
+                this.reset();
+                guestCountContainer.style.display = 'block'; // reset guest count visibility
+            });
         });
     </script>
 </body>
