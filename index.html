@@ -188,6 +188,30 @@
         .music-rotate {
             animation: spin-slow 4s linear infinite;
         }
+
+        /* Efek Salju */
+        #snow-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -2;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            background: white;
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(110vh) translateX(20px); opacity: 0.1; }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -222,6 +246,9 @@
 
     <!-- BACKGROUND HERO -->
     <div id="bg-fallback" class="bg-overlay" style="background-image: url('https://invite.leafitation.com/wp-content/uploads/2025/01/NIGHT-FAIRY-TALE-FALLBACK.jpg');"></div>
+
+    <!-- WADAH EFEK SALJU -->
+    <div id="snow-container"></div>
 
     <!-- BACKGROUND VIDEO -->
     <video id="bg-video" muted playsinline webkit-playsinline preload="auto">
@@ -274,19 +301,19 @@
                 <div class="flex justify-center gap-3 md:gap-5">
                     <div class="timer-box">
                         <span id="days" class="text-xl md:text-2xl font-bold">00</span>
-                        <span class="text-[10px] uppercase text-gray-500 font-bold">Days</span>
+                        <span class="text-[10px] uppercase text-gray-500 font-bold">Hari</span>
                     </div>
                     <div class="timer-box">
                         <span id="hours" class="text-xl md:text-2xl font-bold">00</span>
-                        <span class="text-[10px] uppercase text-gray-500 font-bold">Hours</span>
+                        <span class="text-[10px] uppercase text-gray-500 font-bold">Jam</span>
                     </div>
                     <div class="timer-box">
                         <span id="minutes" class="text-xl md:text-2xl font-bold">00</span>
-                        <span class="text-[10px] uppercase text-gray-500 font-bold">Minutes</span>
+                        <span class="text-[10px] uppercase text-gray-500 font-bold">Menit</span>
                     </div>
                     <div class="timer-box">
                         <span id="seconds" class="text-xl md:text-2xl font-bold">00</span>
-                        <span class="text-[10px] uppercase text-gray-500 font-bold">Seconds</span>
+                        <span class="text-[10px] uppercase text-gray-500 font-bold">Detik</span>
                     </div>
                 </div>
             </div>
@@ -541,6 +568,33 @@
             }, 1000);
         }
 
+        function createSnowflakes() {
+            const container = document.getElementById('snow-container');
+            if (!container) return;
+            container.style.opacity = '1'; 
+            const flakeCount = 50; 
+
+            for (let i = 0; i < flakeCount; i++) {
+                let flake = document.createElement('div');
+                flake.classList.add('snowflake');
+
+                let size = Math.random() * 4 + 2; 
+                let startLeft = Math.random() * 100; 
+                let duration = Math.random() * 5 + 5; 
+                let delay = Math.random() * 5; 
+                let opacity = Math.random() * 0.6 + 0.2; 
+
+                flake.style.width = `${size}px`;
+                flake.style.height = `${size}px`;
+                flake.style.left = `${startLeft}vw`;
+                flake.style.animationDuration = `${duration}s`;
+                flake.style.animationDelay = `${delay}s`;
+                flake.style.opacity = opacity;
+
+                container.appendChild(flake);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             updateVh();
             startCountdown();
@@ -594,6 +648,10 @@
                         scrollIndicator.style.transition = 'opacity 2s ease';
                         scrollIndicator.classList.remove('opacity-0');
                     }
+                    
+                    // Memulai efek salju setelah video selesai
+                    createSnowflakes();
+
                     setTimeout(() => bgVideo.remove(), 1100); 
                 });
             }
