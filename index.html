@@ -101,9 +101,8 @@
             visibility: hidden;
         }
 
-        /* Gaya Sempadan Putih Tebal */
         .glass-panel {
-            background: rgba(13, 22, 33, 0.9); 
+            background: rgba(13, 22, 33, 0.35); 
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 5px solid #ffffff; 
@@ -116,7 +115,6 @@
             text-shadow: 0 4px 10px rgba(0, 0, 0, 1), 0 0 20px rgba(0, 0, 0, 0.8);
         }
 
-        /* Tombol Putih/Perak */
         .btn-white {
             background: linear-gradient(135deg, #ffffff, #e2e8f0, #ffffff);
             color: #000;
@@ -172,7 +170,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Overlay Putih untuk transisi */
         #white-transition {
             position: fixed;
             inset: 0;
@@ -182,9 +179,34 @@
             pointer-events: none;
             transition: opacity 0.8s ease-in-out;
         }
+
+        /* Animasi Tombol Musik */
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .music-rotate {
+            animation: spin-slow 4s linear infinite;
+        }
     </style>
 </head>
 <body class="antialiased">
+
+    <!-- Audio Element -->
+    <audio id="wedding-music" loop>
+        <source src="https://invite.leafitation.com/wp-content/uploads/2025/01/Magical-Fantasy-Cinematic-Background-Music-by-Dmitriy-Sevostyanov-backgroundmusic-freemusic.mp3.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Tombol Musik Mengapung -->
+    <button id="music-toggle" class="fixed bottom-6 right-6 z-[150] w-12 h-12 bg-white/20 backdrop-blur-md rounded-full border border-white/40 flex items-center justify-center text-white shadow-xl hidden transition-transform active:scale-90">
+        <svg id="music-icon-play" class="w-6 h-6 music-rotate" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+        </svg>
+        <svg id="music-icon-pause" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path>
+        </svg>
+    </button>
 
     <!-- Overlay Transisi Putih -->
     <div id="white-transition"></div>
@@ -298,7 +320,6 @@
 
         <!-- SECTION 4: EVENTS -->
         <section class="py-20 px-4 text-center overflow-hidden">
-            <!-- Judul "Wedding Event" telah disesuaikan dengan contoh gambar -->
             <h2 data-aos="fade-down" class="text-3xl md:text-4xl text-white font-bold mb-12 tracking-[0.2em] uppercase">Wedding Event</h2>
             <div data-aos="fade-up" class="glass-panel p-8 md:p-12 max-w-4xl mx-auto">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -471,6 +492,28 @@
             const scrollIndicator = document.getElementById('scroll-indicator');
             const bgFallback = document.getElementById('bg-fallback');
             const whiteTransition = document.getElementById('white-transition');
+            
+            const weddingMusic = document.getElementById('wedding-music');
+            const musicToggle = document.getElementById('music-toggle');
+            const musicIconPlay = document.getElementById('music-icon-play');
+            const musicIconPause = document.getElementById('music-icon-pause');
+
+            let isPlaying = false;
+
+            const toggleMusic = () => {
+                if (isPlaying) {
+                    weddingMusic.pause();
+                    musicIconPlay.classList.add('hidden');
+                    musicIconPause.classList.remove('hidden');
+                } else {
+                    weddingMusic.play();
+                    musicIconPlay.classList.remove('hidden');
+                    musicIconPause.classList.add('hidden');
+                }
+                isPlaying = !isPlaying;
+            };
+
+            musicToggle.addEventListener('click', toggleMusic);
 
             if (bgVideo) {
                 bgVideo.addEventListener('ended', () => {
@@ -507,6 +550,12 @@
                     e.preventDefault();
                     whiteTransition.style.opacity = '1';
                     
+                    // Putar Musik
+                    weddingMusic.play().then(() => {
+                        isPlaying = true;
+                        musicToggle.classList.remove('hidden');
+                    }).catch(err => console.log("Music play blocked", err));
+
                     setTimeout(() => {
                         updateVh();
                         if (bgVideo) { 
